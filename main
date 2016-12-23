@@ -1,0 +1,74 @@
+#include <iostream>
+#include <windows.h>
+using namespace std;
+//Функция копирования из массива А в массив В чисел с цифрой х
+int ESTN(int *A, int *B, int n, int x)
+{
+	int i, j, k, a;
+	k = 0;
+	j = 0;
+	for (i = 0;i<n;i++) //Цикл работы с каждым элементом массива
+	{
+		a = A[i]; 
+		while (a>0) //Цикл работы с A[i]тым элеметном массива
+		{
+			if (a % 10 == x)
+				k++;
+			a /= 10;
+		}
+		if (k > 0)
+			B[j++] = A[i];
+
+		k = 0;
+	}
+	return j;
+}
+//Главная функция
+int main(void)
+{ 
+	int const column = 10;  //Объявление количества столбцов
+	int ArrOriginal[column] = { 1,5,26,34,76,3,6,73,15,25 };  //Объясвление первоначального массива с инициализацией
+	SetConsoleCP(1251);  //Для русификации программы
+	SetConsoleOutputCP(1251);  //Для русификации программы
+	cout << "Ваш массив: " << endl;  //cout - вывод
+	for (int i = 0;i < column;i++) //Цикл вывода массива
+		cout << ArrOriginal[i]<<" ";
+	cout << endl;
+	cout << "Введите цифру, которая должна содержаться в числе: ";
+	int x; //Объявление переменной
+	cin >> x;  //cin - ввод
+	int column1 = 0;
+	int ArrCopy[column]; //Объявление массива без инициализации для хранения в нем чисел с цифрой х
+	int a; //Переменная для работы с первоначальным массивом
+	int b; //Переменная, которая хранит в себе остаток от деления а на 10
+	int k; //Переменная, которая хранит в себе количество цифр х в числе ArrOriginal[i]
+	column1=ESTN(ArrOriginal, ArrCopy, column, x); //В скобках (первоначальный массив; массив, в который копирую число с цифрой х; кол-во элементов первоначального массива; х число, которое должно содержаться)
+	if (column1 != 0)
+	{
+		cout << "Массив чисел, содержащих в себе цифру " << x << ": " << endl;
+		for (int i = 0;i < column1;i++)
+			cout << ArrCopy[i] << " ";
+	}
+	else cout << "Не найдено элементов, которые содержат цифру " << x;
+	cout << endl;
+	cout << "Введите массив: ";
+	for (int i = 0;i<column;i++)
+		cin >> ArrOriginal[i];
+	cout << "Ваш массив: " << endl;  
+	for (int i = 0;i < column;i++)
+		cout << ArrOriginal[i] << " ";
+	cout << endl;
+	cout << "Введите цифру, которая должна содержаться в числе: ";
+	cin >> x;
+	column1 = ESTN(ArrOriginal, ArrCopy, column, x);
+	if (column1 != 0)
+	{
+		cout << "Массив чисел, содержащих в себе цифру " << x << ": " << endl;
+		for (int i = 0;i < column1;i++)
+			cout << ArrCopy[i] << " ";
+	}
+	else cout << "Не найдено элементов, которые содержат цифру " << x;
+	cout << endl;
+		system("pause");
+	return 0;
+}
